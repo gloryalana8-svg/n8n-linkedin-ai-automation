@@ -1,22 +1,42 @@
-AI-Powered LinkedIn Content Automation
+# 🚀 AI-Powered LinkedIn Content Automation with n8n
 
-Overview
+An end-to-end workflow that automatically generates and publishes LinkedIn posts using Artificial Intelligence.
 
-This project automates the creation and publishing of LinkedIn posts using AI and n8n.
+---
 
-Workflow
+## 📖 Project Overview
+
+This project demonstrates how to automate LinkedIn content creation using n8n.
+
+The workflow monitors a Google Sheet for new content ideas, generates a professional LinkedIn post using AI, publishes it to LinkedIn, and updates the spreadsheet to indicate that the post has been published.
+
+---
+
+## ⚙️ Workflow
 
 Google Sheets Trigger
-↓
-Code Node
-↓
+⬇️
+Code (JavaScript)
+⬇️
 AI Agent (Google Gemini)
-↓
-LinkedIn Create Post
-↓
-Google Sheets Update Row
+⬇️
+LinkedIn – Create Post
+⬇️
+Google Sheets – Update Row
 
-Technologies Used
+---
+
+## ✨ Features
+
+- AI-generated LinkedIn posts
+- Google Sheets integration
+- Automated LinkedIn publishing
+- Workflow automation using n8n
+- Duplicate prevention through status updates
+
+---
+
+## 🛠 Technologies Used
 
 - n8n
 - Google Sheets API
@@ -24,13 +44,47 @@ Technologies Used
 - LinkedIn API
 - JavaScript
 
-Features
+---
 
-- AI-generated LinkedIn posts
-- Automated publishing
-- Google Sheets integration
-- Workflow automation
+## 📂 Repository Structure
 
-## Author
+```
+n8n-linkedin-ai-automation/
+│
+├── README.md
+├── workflow.json
+├── docs/
+│   ├── workflow-explanation.md
+│   └── setup-guide.md
+│
+└── images/
+    ├── workflow.png
+    ├── execution.png
+```
 
-Adeola Alana
+---
+
+## 🎯 Learning Outcomes
+
+This project strengthened my skills in:
+
+- Workflow Automation
+- AI Integration
+- API Integration
+- Google Sheets Automation
+- Prompt Engineering
+- Business Process Automation
+- Digital Transformation
+
+---
+
+## 👩‍💻 Author
+
+**Adeola Alana**
+
+Founder, **Aglow Health Technologies**
+
+Transforming Healthcare Through AI, Data & Innovation.
+
+LinkedIn:
+https://www.linkedin.com/company/aglow-health-technologies/
