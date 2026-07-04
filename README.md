@@ -87,4 +87,4 @@ Founder, **Aglow Health Technologies**
 Transforming Healthcare Through AI, Data & Innovation.
 
 LinkedIn:
-https://www.linkedin.com/company/aglow-health-technologies/
+aglow-health-technologies
