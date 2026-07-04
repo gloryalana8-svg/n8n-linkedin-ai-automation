@@ -1,0 +1,300 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1wvoqcPXKEROMEySFnnvrCWF5afHPtvbn_Iw7J_UK8js",
+          "mode": "list",
+          "cachedResultName": "Linked Automation Spreadsheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wvoqcPXKEROMEySFnnvrCWF5afHPtvbn_Iw7J_UK8js/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wvoqcPXKEROMEySFnnvrCWF5afHPtvbn_Iw7J_UK8js/edit#gid=0"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        208
+      ],
+      "id": "fb18207d-f177-4ea3-a740-e97955a47810",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "NsRzb8uDRiX1bRsc",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  return {\n    json: {\n      title: item.json.Title,\n      topic: item.json.Topic\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        208
+      ],
+      "id": "cbf4916e-6751-4d73-b4ba-1e0f95d6b22b",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Write a LinkedIn post about:\n\nTitle: {{$json.title}}\n\nTopic: {{$json.topic}}",
+        "options": {
+          "systemMessage": "You are a professional LinkedIn content writer.\nWrite engaging LinkedIn posts.\nUse a friendly and professional tone.\nInclude relevant hashtags.\nDon't put asterick in the write up"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        208
+      ],
+      "id": "1fe91208-7e1b-4be4-bce4-a5c042a137fb",
+      "name": "AI Agent",
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "person": "Oz4xtLXu4I",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "visibility": "PUBLIC"
+        }
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        592,
+        224
+      ],
+      "id": "beb5682d-45cb-4cd4-a6c9-4e8b8655ba39",
+      "name": "Create a post",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "3p5Njc03aFhhht4C",
+          "name": "LinkedIn account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1wvoqcPXKEROMEySFnnvrCWF5afHPtvbn_Iw7J_UK8js",
+          "mode": "list",
+          "cachedResultName": "Linked Automation Spreadsheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wvoqcPXKEROMEySFnnvrCWF5afHPtvbn_Iw7J_UK8js/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wvoqcPXKEROMEySFnnvrCWF5afHPtvbn_Iw7J_UK8js/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "posted",
+            "row_number": 2
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        784,
+        224
+      ],
+      "id": "db604881-1cca-4a60-b6eb-cb9c23015b11",
+      "name": "Update row in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qPPQP11VLikje8NQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -16,
+        416
+      ],
+      "id": "a0a05eae-95fc-47c9-bae6-2a62313370d4",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "8Yu2uJEvZEztXMH1",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        64,
+        208
+      ],
+      "id": "d8ddea5f-1df6-40b1-be43-cfc07f8a0e6a",
+      "name": "Wait",
+      "webhookId": "642ca74a-cdd2-4b42-8947-0af8ed183ca0"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a post": {
+      "main": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "09e3eea4-b71c-4b19-8461-64e4c4116c4f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c98ad9ddd6d1c4fcad648e719fc7512eb73a5049950a24730fb436aebd268878"
+  },
+  "nodeGroups": [],
+  "id": "7wWmEvcyIIm6sjoA",
+  "tags": []
+}
